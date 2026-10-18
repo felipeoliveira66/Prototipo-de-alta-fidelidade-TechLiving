@@ -24,10 +24,10 @@ export const SCREENS: { id: Screen; label: string }[] = [
   { id: "profiles", label: "7. Perfis" }, { id: "offline", label: "8. Sem Wi-Fi" },
 ];
 
-export function useTechLiving() {
-  const [screen, setScreen] = useState<Screen>("login");
-  const [authed, setAuthed] = useState(false);
-  const [wifi, setWifi] = useState(true);
+export function useTechLiving(init: Screen = "login") {
+  const [screen, setScreen] = useState<Screen>(init);
+  const [authed, setAuthed] = useState(init !== "login" && init !== "signup");
+  const [wifi, setWifi] = useState(init !== "offline");
   const [role, setRole] = useState<Role>("Administrador");
   return { screen, setScreen, authed, setAuthed, wifi, setWifi, role, setRole };
 }
