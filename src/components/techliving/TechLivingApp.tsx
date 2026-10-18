@@ -65,7 +65,7 @@ export function Phone({ ctl }: { ctl: Ctl }) {
     case "add": body = (
       <AddScreen isAdmin={isAdmin} onAdd={(kind, room) => {
         const id = Date.now();
-        setDevices((d) => [...d, { id, name: KIND[kind].label.split(" ")[0], kind, room, on: false, level: kind === "ar" ? 22 : 50, battery: 100 }]);
+        setDevices((d) => [...d, { id, name: KIND[kind].label.split(" ")[0] ?? KIND[kind].label, kind, room, on: false, level: kind === "ar" ? 22 : 50, battery: 100 }]);
         setScreen("home");
       }} back={() => setScreen("home")} />); break;
     case "control": {
