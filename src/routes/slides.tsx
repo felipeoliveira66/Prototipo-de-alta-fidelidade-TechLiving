@@ -4,9 +4,9 @@ import { Smartphone, Wifi, Cpu, Download, UserPlus, Plug, PlusCircle, ChevronLef
 import { Phone, useTechLiving, type Screen } from "@/components/techliving/TechLivingApp";
 
 export const Route = createFileRoute("/slides")({
-  validateSearch: (s: Record<string, unknown>) => ({
-    slide: Math.max(1, Number(s.slide) || 1),
-    print: s.print !== undefined && s.print !== false ? true : undefined,
+  validateSearch: (s: Record<string, unknown>): { slide: number; print?: boolean } => ({
+    slide: Math.max(1, Number(s["slide"]) || 1),
+    ...(s["print"] !== undefined && s["print"] !== false ? { print: true } : {}),
   }),
   head: () => ({
     meta: [
@@ -199,19 +199,19 @@ function SlidesPage() {
       {grid ? (
         <div className="grid flex-1 grid-cols-2 gap-6 overflow-y-auto p-8 md:grid-cols-3 lg:grid-cols-4">
           {SLIDES.map((s, i) => (
-            <button key={i} onClick={() => { go(i); setGrid(false); }} className={`text-left ${i === idx ? "ring-4 ring-primary" : ""} rounded-lg`}>
-              <div className="aspect-video overflow-hidden rounded-lg shadow-soft"><Scaled>{s.render(i + 1)}</Scaled></div>
+            <div role="button" key={i} onClick={() => { go(i); setGrid(false); }} className={`cursor-pointer text-left ${i === idx ? "ring-4 ring-primary" : ""} rounded-lg`}>
+              <div className="pointer-events-none aspect-video overflow-hidden rounded-lg shadow-soft"><Scaled>{s.render(i + 1)}</Scaled></div>
               <p className="mt-2 text-sm font-semibold">{i + 1}. {s.title}</p>
-            </button>
+            </div>
           ))}
         </div>
       ) : (
         <div className="flex flex-1 overflow-hidden">
           <aside className="hidden w-56 shrink-0 space-y-3 overflow-y-auto border-r border-border bg-card p-3 md:block">
             {SLIDES.map((s, i) => (
-              <button key={i} onClick={() => go(i)} className={`block w-full rounded-md ${i === idx ? "ring-2 ring-primary" : "opacity-80"}`}>
-                <div className="aspect-video overflow-hidden rounded-md"><Scaled>{s.render(i + 1)}</Scaled></div>
-              </button>
+              <div role="button" key={i} onClick={() => go(i)} className={`block w-full cursor-pointer rounded-md ${i === idx ? "ring-2 ring-primary" : "opacity-80"}`}>
+                <div className="pointer-events-none aspect-video overflow-hidden rounded-md"><Scaled>{s.render(i + 1)}</Scaled></div>
+              </div>
             ))}
           </aside>
           <main className="relative flex-1 p-6" {...swipe}>
