@@ -70,6 +70,7 @@ export function Phone({ ctl }: { ctl: Ctl }) {
       }} back={() => setScreen("home")} />); break;
     case "control": {
       const d = devices.find((x) => x.id === selected) ?? devices[0];
+      if (!d) { body = null; break; }
       body = <ControlScreen d={d} update={(p) => update(d.id, p)} back={() => setScreen("home")} wifi={wifi} />; break;
     }
     case "routines": body = (
@@ -173,7 +174,7 @@ function Signup({ onDone, onBack }: { onDone: () => void; onBack: () => void }) 
   const [plan, setPlan] = useState("trial");
   const [f, setF] = useState({ name: "", email: "", pass: "" });
   const ok = f.name && f.email.includes("@") && f.pass.length >= 4;
-  const plans = [["mensal", "Mensal", "Cobrança todo mês"], ["anual", "Anual", "Cobrança uma vez por ano"], ["trial", "15 dias grátis", "Experimente antes de assinar"]];
+  const plans: [string, string, string][] = [["mensal", "Mensal", "Cobrança todo mês"], ["anual", "Anual", "Cobrança uma vez por ano"], ["trial", "15 dias grátis", "Experimente antes de assinar"]];
   return (
     <div>
       <Title back={onBack}>Criar sua conta</Title>
