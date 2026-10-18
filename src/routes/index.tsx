@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Phone, SCREENS, useTechLiving } from "@/components/techliving/TechLivingApp";
 
 export const Route = createFileRoute("/")({
@@ -37,6 +37,7 @@ function Index() {
           <p className="text-xs font-bold tracking-[0.25em] text-primary">PROJETO TECHLIVING</p>
           <h1 className="mt-2 text-4xl font-bold">Protótipo de alta fidelidade</h1>
           <p className="mt-2 max-w-lg text-muted-foreground">As 8 telas do aplicativo, navegáveis. Use o celular ao lado ou escolha uma tela abaixo.</p>
+          <Link to="/slides" search={{ slide: 1 }} className="mt-4 inline-flex rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground">Ver apresentação em slides →</Link>
         </header>
 
         <div>
